@@ -1,5 +1,4 @@
 ﻿using System.Linq.Expressions;
-using static RST_Prog3.ObjectsAndProperties;
 
 namespace RST_Prog3
 {
@@ -22,6 +21,33 @@ namespace RST_Prog3
             miza1.Price = 399.99;
 
             Console.WriteLine($"Imamo mizo z id-jem {miza1.ID}");
+
+            ClubTable klubska = new ClubTable(2);
+            DiningTable jedilna = new DiningTable(3, 6);
+            GameTable igralna = new GameTable(4, GameType.Poker);
+            OfficeTable pisalna = new OfficeTable(5);
+
+            // Vse instance dodamo na seznam, ki kot elemente dobi instance
+            // razreda Table, saj so vsi podrazredi Table tudi instance le-te
+            List<Table> lstTables = new List<Table>()
+            {
+                klubska,
+                jedilna,
+                igralna,
+                pisalna
+            };
+            
+            foreach(var tab in lstTables)
+            {
+                Console.WriteLine($"Miza tipa {tab.GetType()} \n" +
+                    $"{tab.ToString()}");
+
+                if(tab is OfficeTable)
+                {
+                    // Pokličemo ToString, ki smo ga definirali kot new (nismo ga prepisali)
+                    Console.WriteLine(((OfficeTable)tab).ToString());
+                }
+            }
 
             Console.Read();
         }
