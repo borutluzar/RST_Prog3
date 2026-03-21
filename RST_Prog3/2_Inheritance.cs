@@ -46,6 +46,11 @@ namespace RST_Prog3
         }
 
         public GameType GameType { get; }
+
+        public override string ToString()
+        {
+            return base.ToString() + " (v razredu GameTable)";
+        }
     }
 
     public enum GameType

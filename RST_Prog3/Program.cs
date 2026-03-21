@@ -39,6 +39,8 @@ namespace RST_Prog3
             
             foreach(var tab in lstTables)
             {
+                // Za vsako instanco se pokliče funkcija ToString,
+                // ki je definirana v hierarhiji dedovanja najbližje k dejanskemu razredu instance
                 Console.WriteLine($"Miza tipa {tab.GetType()} \n" +
                     $"{tab.ToString()}");
 
