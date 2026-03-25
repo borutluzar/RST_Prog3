@@ -36,20 +36,41 @@ namespace RST_Prog3
                 igralna,
                 pisalna
             };
-            
-            foreach(var tab in lstTables)
+
+            foreach (var tab in lstTables)
             {
                 // Za vsako instanco se pokliče funkcija ToString,
                 // ki je definirana v hierarhiji dedovanja najbližje k dejanskemu razredu instance
                 Console.WriteLine($"Miza tipa {tab.GetType()} \n" +
                     $"{tab.ToString()}");
 
-                if(tab is OfficeTable)
+                if (tab is OfficeTable)
                 {
                     // Pokličemo ToString, ki smo ga definirali kot new (nismo ga prepisali)
                     Console.WriteLine(((OfficeTable)tab).ToString());
                 }
             }
+
+            // Instance ne moremo kreirati
+            //ChessPiece figura = new ChessPiece();
+
+            Knight konj = new Knight(Color.White)
+            {
+                Position = new Position(2, 1),
+            };
+            Console.WriteLine($"Figura je na poziciji {konj.Position}");
+            konj.Move(new Position(3, 3));
+            Console.WriteLine($"Premikamo...");
+            Console.WriteLine($"Figura je na poziciji {konj.Position}");
+
+            Rook top = new Rook(Color.Black)
+            {
+                Position = new Position(1, 8),
+            };
+            Console.WriteLine($"Figura je na poziciji {top.Position}");
+            top.Move(new Position(1, 3));
+            Console.WriteLine($"Premikamo...");
+            Console.WriteLine($"Figura je na poziciji {top.Position}");
 
             Console.Read();
         }
