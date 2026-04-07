@@ -72,6 +72,29 @@ namespace RST_Prog3
             Console.WriteLine($"Premikamo...");
             Console.WriteLine($"Figura je na poziciji {top.Position}");
 
+            
+
+            // Primeri za vmesnike
+            Car avto = new Car(101) { Temperature = 24 };
+            avto.Cooling(20);
+
+            IAirCondition avto2 = new Car(102) { Temperature = 20 };
+            avto2.Cooling(24);
+            // Če hočemo dostopati do funkcionalnosti, ki jih ima na voljo Avto,
+            // uporabimo "casting"
+            if (avto2 is Car)
+            {
+                ((Car)avto2).Temperature = 24;
+            }
+
+            IAirCondition theta = new LectureRoom();
+            theta.Heating(22);            
+            //((LectureRoom)theta).Temperature = 35; // Set je private v razredu LectureRoom
+
+            IVentilation eta = new LectureRoom();
+            eta.IncreaseAirQuality(); // Funkcija definirana eksplicitno za IVentilation
+            ((LectureRoom)eta).IncreaseAirQuality(); // Funkcija iz LectureRoom
+
             Console.Read();
         }
     }
