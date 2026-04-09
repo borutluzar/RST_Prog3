@@ -95,6 +95,30 @@ namespace RST_Prog3
             eta.IncreaseAirQuality(); // Funkcija definirana eksplicitno za IVentilation
             ((LectureRoom)eta).IncreaseAirQuality(); // Funkcija iz LectureRoom
 
+
+            // Singleton
+            Singleton singi1 = Singleton.GetInstance();
+            Console.WriteLine(singi1);
+
+            Singleton singi2 = Singleton.GetInstance();
+            Console.WriteLine(singi2);
+
+            if(singi1 == singi2) // Obe spremenljivki kažeta na isto instanco
+            {
+                Console.WriteLine("Objekta sta enaka!");
+            }
+            else
+            {
+                Console.WriteLine("Objekta nista enaka!");
+            }
+
+            SecureInformationSystem sis = new();
+            sis.SystemLogin("Borut");
+            sis.ViewVacationList("Borut");
+            sis.SalaryDataLookup("Borut");
+            sis.ViewVacationList("Borut");
+            sis.SystemLogout("Borut");
+
             Console.Read();
         }
     }
