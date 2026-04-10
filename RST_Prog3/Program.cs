@@ -6,6 +6,7 @@ namespace RST_Prog3
     {
         public static void Main(string[] args)
         {
+            /*
             Table miza1 = new Table(1)
             {
                 dimensions = new Dimensions() { Depth = 0.5, Width = 1.0, Height = 0.8 }
@@ -118,13 +119,24 @@ namespace RST_Prog3
             sis.SalaryDataLookup("Borut");
             sis.ViewVacationList("Borut");
             sis.SystemLogout("Borut");
-
+            */
 
             // Factory
 
             // Na banki želimo pridobiti kreditno kartico
 
+            // Najprej izberemo tip kartice
+            Console.WriteLine("Izberite tip kreditne kartice:\n");
 
+            CreditCardType type = AuxiliaryFunctions.ChooseOption<CreditCardType>();
+            
+            Console.Write("Vnesite ime nosilca kartice: ");
+            string holderName = Console.ReadLine() ?? string.Empty;
+                        
+            ICreditCard? mojaKreditna = CardFactory.CreateCreditCard(type, holderName, "4106", "546");
+            
+            if(mojaKreditna != null)
+                Console.WriteLine($"Limit na moji kartici je {mojaKreditna.Limit}");
 
             Console.Read();
         }

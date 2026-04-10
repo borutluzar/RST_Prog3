@@ -1,3 +1,5 @@
 <Solution>
+  <Project Path="FurnitureInventory/FurnitureInventory.csproj" Id="b278e5eb-1665-4194-89cc-f9a9571a084c" />
+  <Project Path="FurnitureModel/FurnitureModel.csproj" Id="97b7f91a-e12b-4f7b-a147-ed6834858db4" />
   <Project Path="RST_Prog3/RST_Prog3.csproj" />
 </Solution>

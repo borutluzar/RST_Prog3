@@ -4,8 +4,37 @@ using System.Text;
 
 namespace RST_Prog3
 {
-    public class Factory
+    // Razred naredimo kot statičen, saj vsebuje le statično funkcijo,
+    // nikoli pa ga ne bomo instancirali.
+    public static class CardFactory
     {
+        public static CreditCard? CreateCreditCard(CreditCardType type, string holderName, string cardNumber, string securityCode)
+        {
+            CreditCard? mojaKreditna;
+            switch (type)
+            {
+                case CreditCardType.Silver:
+                    mojaKreditna = new SilverCard(holderName, cardNumber, securityCode);
+                    break;
+                case CreditCardType.Gold:
+                    mojaKreditna = new GoldCard(holderName, cardNumber, securityCode);
+                    break;
+                case CreditCardType.Platinum:
+                    mojaKreditna = new PlatinumCard(holderName, cardNumber, securityCode);
+                    break;
+                case CreditCardType.Student:
+                    mojaKreditna = new StudentCard(holderName, cardNumber, securityCode);
+                    break;
+                case CreditCardType.Diamond:
+                    mojaKreditna = new DiamondCard(holderName, cardNumber, securityCode);
+                    break;
+                default:
+                    Console.WriteLine("Ta tip kartice ne obstaja!");
+                    mojaKreditna = null;
+                    break;
+            }
+            return mojaKreditna;
+        }
     }
 
 
@@ -14,7 +43,8 @@ namespace RST_Prog3
         Silver = 1,
         Gold = 2,
         Platinum = 3,
-        Student = 4
+        Student = 4,
+        Diamond = 5
     }
 
     public interface ICreditCard
@@ -24,7 +54,7 @@ namespace RST_Prog3
         CreditCardType CreditCardType { get; }
     }
 
-    internal abstract class CreditCard : ICreditCard
+    public abstract class CreditCard : ICreditCard
     {
         public string CardHolderName { get; }
         public string CardNumber { get; }
@@ -39,27 +69,27 @@ namespace RST_Prog3
         public abstract double AnnualCharge { get; }
         public abstract CreditCardType CreditCardType { get; }
 
-        public CreditCard(string holderName, string cardNumber, string securityCode)
+        internal CreditCard(string holderName, string cardNumber, string securityCode)
         {
             this.CardHolderName = holderName;
             this.CardNumber = cardNumber;
-            this.SecurityCode = securityCode;                       
+            this.SecurityCode = securityCode;
         }
     }
 
-    internal class SilverCard : CreditCard
+    public class SilverCard : CreditCard
     {
-        public SilverCard(string holderName, string cardNumber, string securityCode) 
+        internal SilverCard(string holderName, string cardNumber, string securityCode)
             : base(holderName, cardNumber, securityCode) { }
 
         public override decimal Limit => 800; // enako kot: public decimal Limit { get { return 800; } }
         public override double AnnualCharge => 20;
         public override CreditCardType CreditCardType => CreditCardType.Silver;
     }
-    
-    internal class GoldCard : CreditCard
+
+    public class GoldCard : CreditCard
     {
-        public GoldCard(string holderName, string cardNumber, string securityCode)
+        internal GoldCard(string holderName, string cardNumber, string securityCode)
             : base(holderName, cardNumber, securityCode) { }
 
         public override decimal Limit => 2000;
@@ -67,9 +97,9 @@ namespace RST_Prog3
         public override CreditCardType CreditCardType => CreditCardType.Gold;
     }
 
-    internal class PlatinumCard : CreditCard
+    public class PlatinumCard : CreditCard
     {
-        public PlatinumCard(string holderName, string cardNumber, string securityCode)
+        internal PlatinumCard(string holderName, string cardNumber, string securityCode)
             : base(holderName, cardNumber, securityCode) { }
 
         public override decimal Limit => 5000;
@@ -77,13 +107,23 @@ namespace RST_Prog3
         public override CreditCardType CreditCardType => CreditCardType.Platinum;
     }
 
-    internal class StudentCard : CreditCard
+    public class StudentCard : CreditCard
     {
-        public StudentCard(string holderName, string cardNumber, string securityCode)
+        internal StudentCard(string holderName, string cardNumber, string securityCode)
             : base(holderName, cardNumber, securityCode) { }
 
         public override decimal Limit => 500;
         public override double AnnualCharge => 10;
         public override CreditCardType CreditCardType => CreditCardType.Student;
+    }
+
+    public class DiamondCard : CreditCard
+    {
+        internal DiamondCard(string holderName, string cardNumber, string securityCode)
+            : base(holderName, cardNumber, securityCode) { }
+
+        public override decimal Limit => 50_000;
+        public override double AnnualCharge => 1000;
+        public override CreditCardType CreditCardType => CreditCardType.Diamond;
     }
 }

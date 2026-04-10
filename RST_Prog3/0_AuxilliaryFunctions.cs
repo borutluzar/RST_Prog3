@@ -4,7 +4,7 @@ using System.Text;
 
 namespace RST_Prog3
 {
-    public static class AuxilliaryFunctions
+    public static class AuxiliaryFunctions
     {
         /// <summary>
         /// Funkcija izpiše možnosti in prebere izbiro uporabnika.
