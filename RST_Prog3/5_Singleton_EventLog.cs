@@ -21,7 +21,7 @@ namespace RST_Prog3
             sw.Close();
         }
 
-        private static EventLog instance = null;
+        private static EventLog? instance = null;
 
         public static EventLog GetInstance()
         { 

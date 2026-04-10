@@ -119,6 +119,13 @@ namespace RST_Prog3
             sis.ViewVacationList("Borut");
             sis.SystemLogout("Borut");
 
+
+            // Factory
+
+            // Na banki želimo pridobiti kreditno kartico
+
+
+
             Console.Read();
         }
     }

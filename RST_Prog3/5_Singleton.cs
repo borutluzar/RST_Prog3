@@ -34,12 +34,12 @@ namespace RST_Prog3
             {
                 instance = new Singleton();
             }
-
+            
             return instance;
         }
 
         // Spremenljivka, ki bo hranila edino instanco razreda
-        private static Singleton instance = null;
+        private static Singleton? instance = null;
     }
     
 }
