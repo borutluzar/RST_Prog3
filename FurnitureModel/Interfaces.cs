@@ -15,4 +15,14 @@ namespace FurnitureModel
         public int WeatherResistanceLevel { get; }
         public int MinTemperature { get; }
     }
+
+    public interface IParameterPassing
+    {
+        static abstract List<ParameterName> ListOfParameters();
+    }
+
+    public interface IViewable
+    {
+        public void Display();
+    }
 }

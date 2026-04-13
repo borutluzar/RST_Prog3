@@ -14,27 +14,66 @@ namespace FurnitureInventory
         {
             Console.WriteLine("Pozdravljen uporabnik skladišča!");
 
-            Inventory skladisce = Inventory.GetInstance(INVENTORY_NAME, INVENTORY_ADDRESS, INVENTORY_CAPACITY);
-                        
-            Console.WriteLine($"***  Menu ***");
-            Console.WriteLine($"1. Dodajanje artiklov ");
-            Console.WriteLine($"2. Izhod iz sistema ");
+            Inventory inventory = Inventory.GetInstance(INVENTORY_NAME, INVENTORY_ADDRESS, INVENTORY_CAPACITY);
 
-            Console.Write($"Izberite opcijo: ");
-            string? option = Console.ReadLine();
-
-            switch (option)
+            while (true)
             {
-                case "1":
-                    Console.Write($"Izberite artikel za vnos:");
-                    FurnitureType type = AuxiliaryFunctions.ChooseOption<FurnitureType>();
+                Console.WriteLine($"***  Menu ***");
+                Console.WriteLine($"1. Dodajanje artiklov");
+                Console.WriteLine($"2. Izpis artiklov v skladišču");
+                Console.WriteLine($"3. Izhod iz sistema ");
 
-                    //FurnitureFactory.
-                    break;
-                case "2":
-                    Console.Write($"Hvala in nasvidenje!");
-                    break;
+                Console.Write($"Izberite opcijo: ");
+                string? option = Console.ReadLine();
+
+                switch (option)
+                {
+                    case "1":
+                        Console.Write($"Izberite artikel za vnos:");
+                        FurnitureType type = AuxiliaryFunctions.ChooseOption<FurnitureType>();
+
+                        Dictionary<ParameterName, string>? dicParameters;
+                        switch (type)
+                        {
+                            case FurnitureType.RockingChair:
+                                dicParameters = GetParameterValues(RockingChair.ListOfParameters());
+                                break;
+                            case FurnitureType.BookShelf:
+                                dicParameters = GetParameterValues(BookShelf.ListOfParameters());
+                                break;
+                            default:
+                                dicParameters = null;
+                                break;
+                        }
+                        Furniture? furniture = FurnitureFactory.Create(type, dicParameters);
+
+                        if (furniture != null)
+                            inventory.AddItem(furniture);
+                        break;
+                    case "2":
+                        foreach (var fur in inventory.Items)
+                        {
+                            fur.Display();
+                        }
+                        break;
+                    case "3":
+                        Console.Write($"Hvala in nasvidenje!");
+                        return;
+                }
             }
+        }
+
+        private static Dictionary<ParameterName, string> GetParameterValues(List<ParameterName> lstParameterNames)
+        {
+            Dictionary<ParameterName, string> dicParameters = new();
+            foreach (var parName in lstParameterNames)
+            {
+                Console.Write($"Podajte vrednost za parameter {parName}: ");
+                string parVal = Console.ReadLine();
+
+                dicParameters.Add(parName, parVal);
+            }
+            return dicParameters;
         }
     }
 }
