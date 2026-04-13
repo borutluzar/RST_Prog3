@@ -124,7 +124,7 @@ namespace RST_Prog3
             // Factory
 
             // Na banki želimo pridobiti kreditno kartico
-
+            /*
             // Najprej izberemo tip kartice
             Console.WriteLine("Izberite tip kreditne kartice:\n");
 
@@ -137,6 +137,13 @@ namespace RST_Prog3
             
             if(mojaKreditna != null)
                 Console.WriteLine($"Limit na moji kartici je {mojaKreditna.Limit}");
+            */
+
+
+            // Builder 
+            ComputerFactory factory = new ComputerFactory();
+            Laptop laptop = (Laptop)factory.Create(ComputerType.GamingLaptop);
+            laptop?.DisplaySpecs();
 
             Console.Read();
         }
