@@ -21,8 +21,10 @@ namespace FurnitureModel
         static abstract List<ParameterName> ListOfParameters();
     }
 
-    public interface IViewable
+    public interface IInventoryItem
     {
-        public void Display();
+        public void DisplayDetails();
+
+        public int InventoryQuantity { get; set; }
     }
 }

@@ -19,7 +19,7 @@
         HasArmRests = 6,
     }
 
-    public abstract class Furniture : IParameterPassing, IViewable
+    public abstract class Furniture : IParameterPassing, IInventoryItem
     {
         public int ID { get; }
 
@@ -38,10 +38,12 @@
             return new List<ParameterName>() { ParameterName.Name, ParameterName.Price };
         }
 
-        public virtual void Display()
+        public virtual void DisplayDetails()
         {
             Console.WriteLine($"{Name} - {Price} eur");
         }
+
+        public int InventoryQuantity { get; set; }
     }
 
     public abstract class SeatingFurniture : Furniture
@@ -63,9 +65,9 @@
             return lst;
         }
 
-        public override void Display()
+        public override void DisplayDetails()
         {
-            base.Display();
+            base.DisplayDetails();
             Console.WriteLine($"\nKapaciteta: {Capacity}, Oblazinjen: {(IsUpholstered ? "Da" : "Ne")}");
         }
     }
@@ -109,9 +111,9 @@
             return lst;
         }
 
-        public override void Display()
+        public override void DisplayDetails()
         {
-            base.Display();
+            base.DisplayDetails();
             Console.WriteLine($"\nRadij loka: {Radius}, Naslonjala: {(HasArmRests ? "Da" : "Ne")}");
         }
     }

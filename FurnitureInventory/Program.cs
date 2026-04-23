@@ -53,7 +53,7 @@ namespace FurnitureInventory
                     case "2":
                         foreach (var fur in inventory.Items)
                         {
-                            fur.Display();
+                            fur.DisplayDetails();
                         }
                         break;
                     case "3":
