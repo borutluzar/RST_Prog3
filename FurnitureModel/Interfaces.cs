@@ -6,8 +6,8 @@ namespace FurnitureModel
 {
     public interface IAssemblyRequired
     {
-        public string AssemblyInstructions();
-        public List<string> AssemblyTools();
+        public string GetAssemblyInstructions();
+        public List<string> AssemblyTools { get; }
     }
 
     public interface IOutdoorDurable

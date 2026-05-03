@@ -19,7 +19,7 @@
         HasArmRests = 6,
     }
 
-    public abstract class Furniture : IParameterPassing, IInventoryItem
+    public abstract class Furniture : IInventoryItem, IParameterPassing
     {
         public int ID { get; }
 
@@ -46,6 +46,7 @@
         public int InventoryQuantity { get; set; }
     }
 
+
     public abstract class SeatingFurniture : Furniture
     {
         public int Capacity { get; internal set; }
@@ -56,7 +57,7 @@
             this.Capacity = cap;
         }
 
-        public static new List<ParameterName> ListOfParameters()
+        public new static List<ParameterName> ListOfParameters()
         {
             var lst = Furniture.ListOfParameters();
             lst.Add(ParameterName.Capacity);
@@ -68,7 +69,8 @@
         public override void DisplayDetails()
         {
             base.DisplayDetails();
-            Console.WriteLine($"\nKapaciteta: {Capacity}, Oblazinjen: {(IsUpholstered ? "Da" : "Ne")}");
+            Console.WriteLine($"\nKapaciteta: {Capacity}, " +
+                $"Oblazinjen: {(IsUpholstered ? "Da" : "Ne")}");
         }
     }
 
@@ -82,6 +84,14 @@
             this.MaxWeightCapacity = maxCap;
             this.Material = mat;
         }
+
+        public override void DisplayDetails()
+        {
+            base.DisplayDetails();
+            Console.WriteLine($"" +
+                $"\nMaksimalna obremenitev: {MaxWeightCapacity}, " +
+                $"Material: {this.Material}");
+        }
     }
 
     public enum Material
@@ -94,7 +104,7 @@
 
     public class RockingChair : SeatingFurniture
     {
-        public double Radius { get; internal set; } 
+        public double Radius { get; internal set; }
         public bool HasArmRests { get; set; }
 
         internal RockingChair(int id, string name, int cap, double rad) : base(id, name, cap)
@@ -114,7 +124,8 @@
         public override void DisplayDetails()
         {
             base.DisplayDetails();
-            Console.WriteLine($"\nRadij loka: {Radius}, Naslonjala: {(HasArmRests ? "Da" : "Ne")}");
+            Console.WriteLine($"\nRadij loka: {Radius}, " +
+                $"Naslonjala: {(HasArmRests ? "Da" : "Ne")}");
         }
     }
 
@@ -131,15 +142,12 @@
             this.LegCount = legs;
         }
 
-        public string AssemblyInstructions()
+        public string GetAssemblyInstructions()
         {
             return "Sestavi po teh navodilih!";
         }
 
-        public List<string> AssemblyTools()
-        {
-            return new List<string>() { "kladivo", "izvijač" };
-        }
+        public List<string> AssemblyTools => new List<string>() { "kladivo", "izvijač" };
     }
 
     public class Sofa : SeatingFurniture
@@ -168,14 +176,11 @@
 
         internal BookShelf(int id, string name, int maxCap, Material mat) : base(id, name, maxCap, mat) { }
 
-        public string AssemblyInstructions()
+        public string GetAssemblyInstructions()
         {
             return "Polico po polico";
         }
 
-        public List<string> AssemblyTools()
-        {
-            return new List<string>() { "izvijač" };
-        }
+        public List<string> AssemblyTools => new List<string>() { "izvijač" };
     }
 }
