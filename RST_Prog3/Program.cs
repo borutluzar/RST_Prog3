@@ -191,6 +191,40 @@ namespace RST_Prog3
                         // Delali smo nalogo WildlifeReserve!
                     }
                     break;
+
+                case Lecture.Lecture_09:
+                    {
+                        // Primeri s pizzo
+                        Pepperoni pizza = new Pepperoni();
+                        Console.WriteLine($"Pizza: {pizza.Description}");
+
+                        EggOnPizza pizzaEgg = new EggOnPizza(pizza);
+                        Console.WriteLine($"Pizza: {pizzaEgg.Description}");
+
+                        EggOnPizza pizzaEgg2 = new EggOnPizza(pizzaEgg);
+                        Console.WriteLine($"Pizza: {pizzaEgg2.Description}");
+
+                        OlivesOnPizza pizzaOlives = new OlivesOnPizza(pizzaEgg2);
+                        Console.WriteLine($"Pizza: {pizzaOlives.Description}");
+
+
+                        // Primer z event loggerjem
+                        EventLogger evnt = new EventLogger();
+                        Console.WriteLine(evnt.WriteEvent());
+
+                        UserEventLogger uevnt = new UserEventLogger(evnt, "Borut");
+                        Console.WriteLine(uevnt.WriteEvent());
+
+
+                        // Extensions
+                        string word = "Moja super beseda";
+                        int numVowels = word.CountVowels();
+                        Console.WriteLine($"Niz \"{word}\" ima {numVowels} samoglasnikov!");
+
+                        int numVowels2 = Extensions.CountVowels(word);
+                        Console.WriteLine($"Niz \"{word}\" ima {numVowels2} samoglasnikov!");
+                    }
+                    break;
             }
             Console.Read();
         }
