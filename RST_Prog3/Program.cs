@@ -13,11 +13,11 @@ namespace RST_Prog3
         Lecture_07 = 7,  // 13. 4. 2026
         Lecture_08 = 8,  // 23. 4. 2026
         Lecture_09 = 9,  //  6. 5. 2026
-        Lecture_10 = 10, // 13. 5. 2026
-        Lecture_11 = 11, // 15. 5. 2026
-        Lecture_12 = 12, // 20. 5. 2026
-        Lecture_13 = 13, // 21. 5. 2026
-        Lecture_14 = 14, // 26. 5. 2026
+        Lecture_10 = 10, // 15. 5. 2026
+        Lecture_11 = 11, // 20. 5. 2026
+        Lecture_12 = 12, // 21. 5. 2026
+        Lecture_13 = 13, // 26. 5. 2026
+        Lecture_14 = 14, // 27. 5. 2026
         Lecture_15 = 15, // 28. 5. 2026
     }
 
@@ -43,7 +43,7 @@ namespace RST_Prog3
                         miza1.Weight = 2.4;
                         miza1.Price = 399.99;
 
-                        Console.WriteLine($"Imamo mizo z id-jem {miza1.ID}");                                                
+                        Console.WriteLine($"Imamo mizo z id-jem {miza1.ID}");
                     }
                     break;
 
@@ -153,7 +153,7 @@ namespace RST_Prog3
                         sis.ViewVacationList("Borut");
                         sis.SalaryDataLookup("Borut");
                         sis.ViewVacationList("Borut");
-                        sis.SystemLogout("Borut");                        
+                        sis.SystemLogout("Borut");
                     }
                     break;
 
@@ -172,8 +172,8 @@ namespace RST_Prog3
 
                         ICreditCard? mojaKreditna = CardFactory.CreateCreditCard(type, holderName, "4106", "546");
 
-                        if(mojaKreditna != null)
-                            Console.WriteLine($"Limit na moji kartici je {mojaKreditna.Limit}");                        
+                        if (mojaKreditna != null)
+                            Console.WriteLine($"Limit na moji kartici je {mojaKreditna.Limit}");
                     }
                     break;
 
@@ -225,9 +225,46 @@ namespace RST_Prog3
                         Console.WriteLine($"Niz \"{word}\" ima {numVowels2} samoglasnikov!");
                     }
                     break;
+
+                case Lecture.Lecture_10:
+                    {
+                        // Primer varnostnega proxy-ja
+                        InternetConnector connector = new InternetConnector();
+
+                        Console.WriteLine("Povezovanje z InternetConnector");
+                        connector.ConnectTo("fis.unm.si");
+                        connector.ConnectTo("reddit.com");
+                        Console.WriteLine();
+
+                        OfficeInternetProxy officeConnector = new OfficeInternetProxy();
+                        
+                        Console.WriteLine("Povezovanje z OfficeInternetProxy");
+                        officeConnector.ConnectTo("fis.unm.si");
+                        officeConnector.ConnectTo("reddit.com");
+
+
+                        // Primer virtualnega proxy-ja
+                        Console.WriteLine("Virtualni proxy:");
+
+                        List<IPost> lstFeed = new List<IPost>();
+                        for(int i=0;i<100; i++)
+                        {
+                            lstFeed.Add(new PostProxy($"feeder.com/photo_{i}.jpg"));
+                        }
+                        Console.WriteLine("===== Feeder se je odprl =====");
+                        Console.WriteLine("Uporabnik predrsuje feed...");
+
+                        Console.WriteLine("Uporabnik se je ustavil pri objavi 45:");
+                        lstFeed[44].ShowPost();
+
+                        Console.WriteLine("Uporabnik predrsuje dalje...");
+                        Thread.Sleep(1000);
+                        Console.WriteLine("Uporabnik se vrne na objavo 45:");
+                        lstFeed[44].ShowPost();
+                    }
+                    break;
             }
             Console.Read();
         }
     }
-
 }
