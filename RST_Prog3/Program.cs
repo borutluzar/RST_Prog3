@@ -14,11 +14,12 @@ namespace RST_Prog3
         Lecture_08 = 8,  // 23. 4. 2026
         Lecture_09 = 9,  //  6. 5. 2026
         Lecture_10 = 10, // 15. 5. 2026
-        Lecture_11 = 11, // 20. 5. 2026
-        Lecture_12 = 12, // 21. 5. 2026
-        Lecture_13 = 13, // 26. 5. 2026
-        Lecture_14 = 14, // 27. 5. 2026
-        Lecture_15 = 15, // 28. 5. 2026
+        Lecture_10_Generics = 11, // 15. 5. 2026
+        Lecture_11 = 12, // 20. 5. 2026
+        Lecture_12 = 13, // 21. 5. 2026
+        Lecture_13 = 14, // 26. 5. 2026
+        Lecture_14 = 15, // 27. 5. 2026
+        Lecture_15 = 16, // 28. 5. 2026
     }
 
     public class Program
@@ -237,7 +238,7 @@ namespace RST_Prog3
                         Console.WriteLine();
 
                         OfficeInternetProxy officeConnector = new OfficeInternetProxy();
-                        
+
                         Console.WriteLine("Povezovanje z OfficeInternetProxy");
                         officeConnector.ConnectTo("fis.unm.si");
                         officeConnector.ConnectTo("reddit.com");
@@ -247,7 +248,7 @@ namespace RST_Prog3
                         Console.WriteLine("Virtualni proxy:");
 
                         List<IPost> lstFeed = new List<IPost>();
-                        for(int i=0;i<100; i++)
+                        for (int i = 0; i < 100; i++)
                         {
                             lstFeed.Add(new PostProxy($"feeder.com/photo_{i}.jpg"));
                         }
@@ -261,6 +262,18 @@ namespace RST_Prog3
                         Thread.Sleep(1000);
                         Console.WriteLine("Uporabnik se vrne na objavo 45:");
                         lstFeed[44].ShowPost();
+                    }
+                    break;
+
+                case Lecture.Lecture_10_Generics:
+                    {
+                        HashSet<string> hsh = new HashSet<string>() { "pogača", "krompir", "burger", "mlinci" };
+                        Console.WriteLine(hsh.WriteEnumerable<string>());
+
+                        Article<int, string, object> art = new (1, "doi", hsh);
+                        Console.WriteLine($"Article im ID: {art.ID}\n" +
+                            $"Ključ: {art.KeyValue.Key}\n" +
+                            $"Vrednost: {(art.KeyValue.Value as HashSet<string>).WriteEnumerable<string>()}");
                     }
                     break;
             }
