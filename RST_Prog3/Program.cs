@@ -15,11 +15,12 @@ namespace RST_Prog3
         Lecture_09 = 9,  //  6. 5. 2026
         Lecture_10 = 10, // 15. 5. 2026
         Lecture_10_Generics = 11, // 15. 5. 2026
-        Lecture_11 = 12, // 20. 5. 2026
-        Lecture_12 = 13, // 21. 5. 2026
-        Lecture_13 = 14, // 26. 5. 2026
-        Lecture_14 = 15, // 27. 5. 2026
-        Lecture_15 = 16, // 28. 5. 2026
+        Lecture_11_ObserverBasic = 12, // 20. 5. 2026
+        Lecture_11_ObserverEvents = 13, // 20. 5. 2026
+        Lecture_12 = 14, // 21. 5. 2026
+        Lecture_13 = 15, // 26. 5. 2026
+        Lecture_14 = 16, // 27. 5. 2026
+        Lecture_15 = 17, // 28. 5. 2026
     }
 
     public class Program
@@ -270,10 +271,72 @@ namespace RST_Prog3
                         HashSet<string> hsh = new HashSet<string>() { "pogača", "krompir", "burger", "mlinci" };
                         Console.WriteLine(hsh.WriteEnumerable<string>());
 
-                        Article<int, string, object> art = new (1, "doi", hsh);
+                        Article<int, string, object> art = new(1, "doi", hsh);
                         Console.WriteLine($"Article im ID: {art.ID}\n" +
                             $"Ključ: {art.KeyValue.Key}\n" +
                             $"Vrednost: {(art.KeyValue.Value as HashSet<string>).WriteEnumerable<string>()}");
+                    }
+                    break;
+
+                case Lecture.Lecture_11_ObserverBasic:
+                    {
+                        // Pripravimo subjekt
+                        StockMarket market = new();
+
+                        // Pripravimo opazovalce
+                        EmailObserver email1 = new EmailObserver("borut@g.com", 50, 150);
+                        EmailObserver email2 = new EmailObserver("luzar@g.com", 70, 120);
+                        DisplayObserver dis = new DisplayObserver();
+
+                        // Naročimo opazovalce
+                        market.Subscribe(email1);
+                        market.Subscribe(email2);
+                        market.Subscribe(dis);
+
+                        // Pridobimo vrednost delnice
+                        Console.WriteLine($"Pridobivamo ceno delnice prvič...");
+                        market.GetStockPriceFromAPI(110);
+
+                        Console.WriteLine($"Pridobivamo ceno delnice drugič...");
+                        market.GetStockPriceFromAPI(130);
+
+                        Console.WriteLine($"Pridobivamo ceno delnice tretjič...");
+                        market.GetStockPriceFromAPI(160);
+
+                        market.Unsubscribe(email1);
+                        Console.WriteLine($"Pridobivamo ceno delnice še zadnjič...");
+                        market.GetStockPriceFromAPI(80);
+
+                        Console.WriteLine($"Prikazujemo statistiko");
+                        dis.GetStatistics();
+                    }
+                    break;
+
+                case Lecture.Lecture_11_ObserverEvents:
+                    {
+                        // Subjekt
+                        TemperatureSensor sensor = new TemperatureSensor();
+
+                        // Opazovalci
+                        ConsoleDisplay dis1 = new ConsoleDisplay();
+                        ConsoleDisplay dis2 = new ConsoleDisplay();
+                        AlarmSystem alarm = new AlarmSystem();
+
+                        // Naročimo opazovalce
+                        sensor.OnTemperatureChanged += dis1.UpdateDisplay;
+                        sensor.OnTemperatureChanged += dis2.UpdateDisplay;
+                        sensor.OnTemperatureChanged += alarm.CheckTemperature;
+
+                        // Pridobimo temperaturo
+                        sensor.GetTemperature(30);
+                        sensor.GetTemperature(75.4);
+                        sensor.GetTemperature(102.6);
+
+                        // Odjavimo display
+                        Console.WriteLine($"Odjavimo drugi monitor");
+                        sensor.OnTemperatureChanged -= dis2.UpdateDisplay;
+
+                        sensor.GetTemperature(82.1);                                                
                     }
                     break;
             }
