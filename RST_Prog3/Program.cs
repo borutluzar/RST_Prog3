@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using RST_Prog3.Strategy;
+using System.Linq.Expressions;
 
 namespace RST_Prog3
 {
@@ -337,6 +338,25 @@ namespace RST_Prog3
                         sensor.OnTemperatureChanged -= dis2.UpdateDisplay;
 
                         sensor.GetTemperature(82.1);                                                
+                    }
+                    break;
+
+                case Lecture.Lecture_12:
+                    {
+                        Researcher rsr1 = new Researcher("L", "Borut");
+                        Researcher rsr2 = new Researcher("R", "Borut", new SpeakForeignLanguageSoSo());
+                        Lecturer lec = new Lecturer("T", "Borut");
+                        PRPerson pr = new PRPerson("R", "Bojana");
+                        Janitor jan = new Janitor("V", "Andrej");
+
+                        rsr1.SpeakForeignLanguage("nemščina");
+                        rsr2.SpeakForeignLanguage("nemščina");
+                        lec.SpeakForeignLanguage("nemščina");
+                        pr.SpeakForeignLanguage("angleščina");
+                        jan.SpeakForeignLanguage("angleščina");
+
+                        rsr1.PaySalary("0923-1232-4902-6999", 10);
+                        jan.PaySalary("0823-1232-4902-6999", 3);
                     }
                     break;
             }
